@@ -5,10 +5,22 @@ import plane from 'src/images/plane.png';
 import { Text } from 'src/ui/text';
 
 import styles from './Article.module.scss';
+import type { ArticleStateType } from 'src/constants/articleProps';
 
-export const Article = () => {
+type ArticleProps = {
+	state: ArticleStateType;
+};
+
+export const Article = ({ state }: ArticleProps) => {
 	return (
-		<article className={clsx(styles.article)}>
+		<article className={clsx(styles.article)} 
+		style={{
+			fontFamily: state.fontFamilyOption.value,
+			color: state.fontColor.value,
+			backgroundColor: state.backgroundColor.value,
+			maxWidth: state.contentWidth.value,
+			fontSize: state.fontSizeOption.value,
+		}}>
 			<Text as='h1' size={45} weight={800} uppercase dynamicLite>
 				Портрет Западной Швейцарии
 			</Text>
