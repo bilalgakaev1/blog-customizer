@@ -8,6 +8,7 @@ import { RadioGroup } from 'src/ui/radio-group';
 
 import styles from './ArticleParamsForm.module.scss';
 import { Separator } from 'src/ui/separator';
+import { clsx } from 'clsx';
 
 type ArticleParamsFormProps = {
 	isOpen: boolean;
@@ -25,19 +26,21 @@ export const ArticleParamsForm = ({ isOpen, onToggle, sidebarRef, articleState, 
 		setFormState(articleState); 
 	  }, [isOpen]);
 
-	const handleSubmit = () => {
+	  const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
 		setArticleState(formState);
-	};
+	  };
 
-	const handleReset = () => {
+	const handleReset = (e: React.FormEvent) => {
+		e.preventDefault();
 		setFormState(defaultArticleState);
 	};
 
 	return (
 		<>
 			<ArrowButton isOpen={isOpen} onClick={onToggle} />
-			<aside ref={sidebarRef} className={[styles.container, isOpen ? styles.container_open : ""].join(" ")}>
-				<form className={styles.form}>
+			<aside ref={sidebarRef} className={clsx(styles.container, { [styles.container_open]: isOpen })}>
+				<form className={styles.form} onSubmit={handleSubmit} onReset={handleReset}>
 			
 				<Select
   				title="Шрифт"
@@ -87,8 +90,8 @@ export const ArticleParamsForm = ({ isOpen, onToggle, sidebarRef, articleState, 
 
 					
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' htmlType='reset' type='clear' onClick={handleReset}/>
-						<Button title='Применить' htmlType='button' type='apply' onClick={handleSubmit}/>
+						<Button title='Сбросить' htmlType='reset' type='clear'/>
+						<Button title='Применить' htmlType='submit' type='apply'/>
 					</div>
 				</form>
 			</aside>
