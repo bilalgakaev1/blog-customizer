@@ -34,6 +34,7 @@ export const ArticleParamsForm = ({ isOpen, onToggle, sidebarRef, articleState, 
 	const handleReset = (e: React.FormEvent) => {
 		e.preventDefault();
 		setFormState(defaultArticleState);
+		setArticleState(defaultArticleState)
 	};
 
 	return (
